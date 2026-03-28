@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* Importamos una fuente elegante */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+        body {
+            background-color: transparent;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor principal estilo plaque */
+        #widget-container {
+            display: flex;
+            align-items: center;
+            /* Degradado rojo premium */
+            background: linear-gradient(180deg, #d32f2f 0%, #8e0000 100%);
+            /* Borde dorado brillante */
+            border: 3px solid #f9d423;
+            box-shadow: 0 0 20px rgba(249, 212, 35, 0.4), inset 0 0 10px rgba(0,0,0,0.5);
+            border-radius: 50px; /* Forma de cápsula */
+            padding: 5px 40px; /* Aumentamos el padding para dar espacio */
+            min-width: 380px;
+            height: 90px; /* Un poco más de altura para el corazón */
+            position: relative;
+        }
+
+        /* Estilo del texto */
+        #text-area {
+            color: #ffffff;
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+            flex-grow: 1;
+            text-align: center;
+            white-space: nowrap; /* Evita que el texto se parta */
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Contenedor del corazón CORREGIDO */
+        .heart-wrapper {
+            position: absolute;
+            right: -25px; /* Lo movemos un poco más a la derecha */
+            width: 120px; /* Aumentamos el ancho significativamente */
+            height: 120px; /* Aumentamos la altura significativamente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .heart-icon {
+            width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+            height: 100%; /* La imagen ocupa toda la altura del contenedor */
+            object-fit: contain; /* Asegura que se vea todo el corazón sin recortarse */
+            /* ANIMACIÓN DE PALPITACIÓN */
+            animation: heartbeat 1.5s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px rgba(249, 212, 35, 0.7));
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            10% { transform: scale(1.15); }
+            20% { transform: scale(1); }
+            30% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+<div id="widget-container">
+    <div id="text-area">Cargando...</div>
+    <div class="heart-wrapper">
+        <img src="https://i.imgur.com/C5zx4am.png" class="heart-icon" alt="Heart Level">
+    </div>
+</div>
+
+<script>
+    // --- LISTA DE FANS (Nivel +20) ---
+    const fans = [
+        { nombre: "Solis", nivel: 36 },
+        { nombre: "Winter_kuin", nivel: 35 },
+        { nombre: "Andy Galaz", nivel: 32 },
+        { nombre: "FPatroclo", nivel: 30 },
+        { nombre: "Flippy", nivel: 32 },
+        { nombre: "Bryan Celis", nivel: 29 },
+        { nombre: "JPiier", nivel: 30 },
+        { nombre: "Felipearagon", nivel: 25 },
+        { nombre: "HoneyBadger", nivel: 25 },
+        { nombre: "Diego", nivel: 21 },
+        { nombre: "EijiArreola1622", nivel: 23 },
+        { nombre: "Zyro Amante", nivel: 20 },
+        { nombre: "Mario", nivel: 22 },
+        { nombre: "Pepsiman", nivel: 23 },
+        { nombre: "Saul NAp", nivel: 21 },
+        { nombre: "isaias GM", nivel: 21 }
+    ];
+
+    let currentIndex = 0;
+    const textArea = document.getElementById('text-area');
+
+    function updateFan() {
+        textArea.style.opacity = 0;
+        setTimeout(() => {
+            const fan = fans[currentIndex];
+            // Texto con el nivel resaltado en dorado
+            textArea.innerHTML = `${fan.nombre} <span style="color: #f9d423;">Nivel ${fan.nivel}</span>`;
+            textArea.style.opacity = 1;
+            
+            currentIndex = (currentIndex + 1) % fans.length;
+        }, 800);
+    }
+
+    // Intervalo de 5 segundos
+    setInterval(updateFan, 5000);
+    updateFan(); // Primera ejecución
+</script>
+
+</body>
+</html>
